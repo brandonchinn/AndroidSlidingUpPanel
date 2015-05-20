@@ -12,11 +12,11 @@ As seen in [Umano](http://umanoapp.com) [Android app](https://play.google.com/st
 
 ### Importing the library
 
-#### Eclipse 
+#### Eclipse
 
 Download the [latest release](https://github.com/umano/AndroidSlidingUpPanel/releases) and include the `library` project as a dependency in Eclipse.
 
-#### Android Studio 
+#### Android Studio
 
 Simply add the following dependency to your `build.gradle` file to use the latest version:
 
@@ -29,14 +29,14 @@ dependencies {
 }
 ```
 
-### Usage 
+### Usage
 
 * Include `com.sothree.slidinguppanel.SlidingUpPanelLayout` as the root element in your activity layout.
 * The layout must have `gravity` set to either `top` or `bottom`.
 * Make sure that it has two children. The first child is your main layout. The second child is your layout for the sliding up panel.
 * The main layout should have the width and the height set to `match_parent`.
 * The sliding layout should have the width set to `match_parent` and the height set to either `match_parent`, `wrap_content` or the max desireable height.
-* By default, the whole panel will act as a drag region and will intercept clicks and drag events. You can restrict the drag area to a specific view by using the `setDragView` method or `umanoDragView` attribute. 
+* By default, the whole panel will act as a drag region and will intercept clicks and drag events. You can restrict the drag area to a specific view by using the `setDragView` method or `umanoDragView` attribute.
 
 For more information, please refer to the sample code.
 
@@ -118,10 +118,10 @@ If you have an awesome pull request, send it over!
   * `setTouchEnabled(false)` - disables panel's touch responsiveness (drag and click), you can still control the panel programatically
   * `getPanelState` - is now the only method to get the current panel state
   * `setPanelState` - is now the only method to modify the panel state from code
-* 2.0.2 - Allow `wrap_content` for sliding view height attribute. Bug fixes. 
-* 2.0.1 - Bug fixes. 
-* 2.0.0 - Cleaned up various public method calls. Added animated `showPanel`/`hidePanel` methods. 
-* 1.0.1 - Initial Release 
+* 2.0.2 - Allow `wrap_content` for sliding view height attribute. Bug fixes.
+* 2.0.1 - Bug fixes.
+* 2.0.0 - Cleaned up various public method calls. Added animated `showPanel`/`hidePanel` methods.
+* 1.0.1 - Initial Release
 
 ### Licence
 
