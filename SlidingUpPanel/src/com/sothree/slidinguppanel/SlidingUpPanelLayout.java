@@ -144,12 +144,12 @@ public class SlidingUpPanelLayout extends ViewGroup {
     /**
      * The child view that can slide, if any.
      */
-    private View mSlideableView;
+    protected View mSlideableView;
 
     /**
      * The main view
      */
-    private View mMainView;
+    protected View mMainView;
 
     /**
      * Current state of the slideable view.
@@ -366,6 +366,8 @@ public class SlidingUpPanelLayout extends ViewGroup {
         if (mDragViewResId != -1) {
             setDragView(findViewById(mDragViewResId));
         }
+        mMainView = getChildAt(0);
+        mSlideableView = getChildAt(1);
     }
 
     public void setGravity(int gravity) {
@@ -712,8 +714,6 @@ public class SlidingUpPanelLayout extends ViewGroup {
             throw new IllegalStateException("Sliding up panel layout must have exactly 2 children!");
         }
 
-        mMainView = getChildAt(0);
-        mSlideableView = getChildAt(1);
         if (mDragView == null) {
             setDragView(mSlideableView);
         }
@@ -904,8 +904,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
         // where a child begins handling a touch event, but then the
         // parent takes over. If we rely on onInterceptTouchEvent, we
         // lose control of the touch as soon as the child handles the event.
-        if (mScrollView == null)
+        if (mScrollView == null || !isEnabled() || !isTouchEnabled()) {
             return super.dispatchTouchEvent(ev);
+        }
 
         final int action = MotionEventCompat.getActionMasked(ev);
 
@@ -1139,7 +1140,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
     }
 
-    private void onPanelDragged(int newTop) {
+    protected void onPanelDragged(int newTop) {
         mLastNotDraggingSlideState = mSlideState;
         mSlideState = PanelState.DRAGGING;
         // Recompute the slide offset based on the new top position
@@ -1234,8 +1235,8 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
-    public void draw(Canvas c) {
-        super.draw(c);
+    public void onDraw(Canvas c) {
+        super.onDraw(c);
 
         // draw the shadow
         if (mShadowDrawable != null) {
