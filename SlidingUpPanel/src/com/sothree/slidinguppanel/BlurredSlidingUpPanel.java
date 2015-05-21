@@ -1,22 +1,23 @@
 package com.sothree.slidinguppanel;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
+import android.support.v8.renderscript.Allocation;
+import android.support.v8.renderscript.Element;
+import android.support.v8.renderscript.RenderScript;
+import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
 import java.util.ArrayList;
 
 public class BlurredSlidingUpPanel extends SlidingUpPanelLayout implements ViewTreeObserver.OnGlobalLayoutListener {
+    private static final String TAG = "BlurredSlidingUpPanel";
     private Context context;
     private Bitmap blurredBmp;
     private BitmapDrawable bmDrawable;
@@ -83,9 +84,8 @@ public class BlurredSlidingUpPanel extends SlidingUpPanelLayout implements ViewT
         }
     }
 
-    @SuppressLint("NewApi") @Override
+    @Override
     protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
         if (mMainView != null) {
             try {
                 mMainView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -99,14 +99,15 @@ public class BlurredSlidingUpPanel extends SlidingUpPanelLayout implements ViewT
             task.cancel(true);
         }
         blurtasks.clear();
+        super.onDetachedFromWindow();
     }
 
     @Override
-    public void onDraw(Canvas c) {
-        if (bmDrawable != null) {
-            bmDrawable.draw(c);
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+        if (mSlideableView == child && bmDrawable != null) {
+            bmDrawable.draw(canvas);
         }
-        super.onDraw(c);
+        return super.drawChild(canvas, child, drawingTime);
     }
 
     private void updateBackgroundImage() {
@@ -133,7 +134,6 @@ public class BlurredSlidingUpPanel extends SlidingUpPanelLayout implements ViewT
         }
         super.onPanelDragged(newTop);
     }
-
     /*
     * OnGlobalLayoutListener implementation
     */
@@ -143,4 +143,5 @@ public class BlurredSlidingUpPanel extends SlidingUpPanelLayout implements ViewT
         Log.i("BRANDON", "onGlobalLayout");
         updateBackgroundImage();
     }
+
 }

@@ -21,6 +21,10 @@ dependencies {
 android {
   compileSdkVersion 21
   buildToolsVersion "21.0.1"
+  defaultConfig {
+    renderscriptTargetApi 18
+    renderscriptSupportModeEnabled true
+  }
   lintOptions {
     abortOnError false
   }
